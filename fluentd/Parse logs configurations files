@@ -1,0 +1,29 @@
+Parse Logs Configurations files: these are used to specify how log data should be parsed and formatted by Fluentd. Before logs can be sent to their final destination, they need to be parsed and formatted in a way that makes them easily readable and searchable. The parsing rules are typically specified using a parser plugin, which determines how to parse the log data into structured records that can be easily searched and analyzed.
+
+<source>
+  @type tail
+  @id in_tail_nginx_logs
+  path /var/log/nginx/access.log
+  pos_file /var/log/td-agent/access.log.pos
+  tag nginx.access
+  <parse>
+    @type regexp
+    expression /^(?<remote_addr>[^ ]*) [^ ]* [^ ]* \[(?<time>[^\]]*)\] "(?<request>[^"]*)" (?<status>[^ ]*) (?<body_bytes_sent>[^ ]*) "([^"]*)" "([^"]*)" "([^"]*)"/
+    time_format %d/%b/%Y:%H:%M:%S %z
+  </parse>
+</source>
+<match nginx.access>
+  @type stdout
+</match>
+<match nginx.access>
+  @type record_transformer
+  <record>
+    http_host ${request.split(" ")[1]}
+    http_method ${request.split(" ")[0]}
+  </record>
+</match>
+In this example, the <parse> block uses the regexp plugin to parse logs in the Apache Combined Log Format. The regular expression defined in the expression parameter captures the various fields in the log line, including the remote IP address, timestamp, request method and path, HTTP status code, and response size. The time_format parameter specifies the format of the timestamp field.
+
+The first <match> block simply outputs the parsed logs to the console using the stdout plugin. The second <match> block uses the record_transformer plugin to add two new fields to the record: http_host and http_method. These fields are extracted from the request field using the split method.
+
+Note that the <match> tag can be used multiple times to specify multiple output destinations with different plugins and configurations.

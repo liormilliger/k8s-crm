@@ -1,0 +1,54 @@
+PUT command allows you to insert a new document data into Elasticsearch. Here's an example of how to use the PUT command:
+
+PUT /my_playlist/song/6
+{
+ "title" : "1000 years",
+ "artist" : "Christina Perri",
+ "album" : "Breaking Dawn",
+ "year" : 2011
+}
+
+Here's a breakdown of the components of the request:
+PUT is the HTTP method used to send this request to Elasticsearch.
+/my_playlist/song/6 specifies the index, type, and ID of the document to be created. In this case, the index is my_playlist, the type is song, and the ID is 6.
+The request body is a JSON object that contains the fields and values of the document being created. In this case, the document has four fields: title, artist, album, and year, with their corresponding values.
+When you send this request to Elasticsearch, it will create a new document with the specified ID in the my_playlist index, with the type song and the fields and values specified in the request body.
+Note that if the my_playlist index or the song type does not exist in Elasticsearch, they will be automatically created when you send this request.
+
+**************************************
+
+To UPDATE a value, you use the same PUT command to the same document. For example, if you want to insert a new parameter, location, you could do it in the following way:
+
+PUT /my_playlist/song/6
+{
+ "title" : "1000 years",
+ "artist" : "Christina Perri",
+ "album" : "Breaking Dawn",
+ "year" : 2011,
+ "location" : "London"
+}
+
+**************************************
+
+GET command allows you to retrieve information about your data. Here's an example of how to use the GET command:
+
+GET /my_playlist/song/6
+
+**************************************
+
+DELETE
+
+DELETE command allows you to delete a specific document or an entire index in Elasticsearch. Here's an example of how to use the DELETE command:
+
+DELETE /my_playlist/song/6
+
+*************************************
+
+Different Search APIs exist. You can learn more about it here:
+https://www.elastic.co/guide/en/elasticsearch/reference/6.0/search.html
+
+*************************************
+
+QUERY DSL
+
+https://www.elastic.co/guide/en/elasticsearch/reference/6.0/query-dsl.html

@@ -1,0 +1,11 @@
+architecture: replicaset
+replicaCount: 3
+auth:
+  enabled: true
+  rootPassword: rootpassword
+  username: liorm
+  password: liorm
+  database: mongodb
+persistence:
+  enabled: true
+  size: 8Gi

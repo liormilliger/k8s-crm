@@ -1,0 +1,6 @@
+*(asterisk): Matches any characters, including none. For example, "log*" would match any indices that start with "log", such as "logs-2021-01-01" and "logstash-2021.01.01".
+? (question mark): Matches any single character. For example, "test-???" would match indices with names like "test-abc", "test-def", and so on.
+[ ](square brackets): Matches any single character that is enclosed in the brackets. For example, "test-[123]" would match indices named "test-1", "test-2", or "test-3".
+, (comma): Used to separate multiple patterns. For example, "logs-,metrics-" would match any indices that start with "logs-" or "metrics-".
+{ } (curly braces): Used to define a range of values for a specific character. For example, "test-{01..10}" would match indices named "test-01", "test-02", and so on up to "test-10".
+! (exclamation mark): Negates a pattern. For example, "!test-*" would match any index that does not start with "test-".

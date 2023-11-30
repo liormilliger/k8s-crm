@@ -1,0 +1,70 @@
+Term Search
+
+Use KQL to return results where the words 'Greater Accra' are present in the documents
+
+"Greater Accra"
+
+--------------------------------------
+
+Filter for documents where a field exists
+Use the * operator to filter documents for which a specified field has an index value. For instance, use the syntax shown below to search for documents that contain the 'http.request.method' field:
+
+http.request.method: *
+
+Use KQL to find documents that match a particular number, word, date, or boolean value. Use the following search, for instance, to get documents whose http.request.method is GET:
+
+http.request.method: GET
+
+You can also filter documents based on the source by IP address:
+
+source.ip : 118.184.177.30
+
+--------------------------------------
+
+Wildcard Search
+
+You can use the wildcard * to match just parts of a term/word, e.g. this query will find anything beginning with “test” like “tests”, “tester”, “testing”, etc.
+
+test*
+
+
+Wildcards can be used anywhere in a term/word.  Using a wildcard in front of a word can be rather slow and resource intensive for your Elasticsearch — use with care.
+
+--------------------------------------
+
+Multiple Queries
+
+Use and/or keywords to combine multiple queries.the keywords are not case-sensitive. For example, to find documents where the source.ip is `118.184.177.30` or the source.ip is `118.184.177.40`, use the following query:
+
+source.ip: 118.184.177.30 OR source.ip: 118.184.177.40
+
+source.ip: 118.184.177.30 AND source.ip: 118.184.177.40
+
+(source.ip: 118.184.177.30 AND source.ip: 118.184.177.40)
+OR
+(source.ip: 118.184.177.50 AND source.ip: 118.184.177.60)
+
+--------------------------------------
+
+Quering nested fields
+
+Querying nested fields requires a special syntax. Consider the following document, where product is a nested field:
+
+{
+  "product" : [
+    {
+      "name" : "iPad",
+      "brand" :  "Apple"
+    },
+    {
+      "name" : "HP 24mh FHD Monitor",
+      "brand" :  "HP"
+    }
+  ]
+}
+
+To find documents where a single value inside the product array contains a name of “HP 24mh FHD Monitor” and brand of “HP”, use the following:
+
+product:{ name: "HP 24mh FHD Monitor" and brand: "HP" }
+
+Next Lesson

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crm-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: crm
+  template:
+    metadata:
+      labels:
+        app: crm
+    spec:
+      containers:
+        - name: crm-demo
+          image: pwstaging/demo-crm:latest
+          envFrom:
+          - configMapRef:
+              name: demo-crm-conf
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MONGODV_URI
+              valueFrom:
+                secretKeyRef:
+                  name: crm-mongo-secret
+                  key: MONGODB_URI

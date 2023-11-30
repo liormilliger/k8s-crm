@@ -1,0 +1,22 @@
+Classify configurations files: These files are in charge of categorizing the log sources and ensuring that the logs are ready to be analyzed. For each of these groups, logs will be processed differently. 
+
+<filter docker.var.lib.docker.containers.*.*.log>
+    @type docker_metadata
+    labels
+</filter>
+<match docker.var.lib.docker.containers.*.*.log> 
+    @type rewrite_tag_filter
+    <rule>
+        key container_name
+        pattern ^(.+)nginx (.+)$
+        tag single.nginx.$1
+    </rule>
+    <rule>
+        key container_name
+        pattern ^(.+)rails(.+)$
+        tag single.rails.$1
+    </rule>
+</match>
+The filter tag uses the docker_metadata plugin to add metadata to the log records. The docker_metadata plugin extracts metadata from Docker container logs, such as the container ID and name, and adds them to the log records as key-value pairs. In this case, the filter is applied to logs that match the pattern `docker.var.lib.docker.containers.*.*.log`, which corresponds to the Docker container logs stored in `/var/lib/docker/containers`. The labels parameter specifies that the filter should extract container labels and add them to the log records.API Server
+The match tag uses the rewrite_tag_filter plugin to rewrite the tags of log records based on the container name. The rewrite_tag_filter plugin allows you to modify the tag of a log record based on specific rules. In this case, the filter is applied to logs that match the pattern `docker.var.lib.docker.containers.*.*.log`, which corresponds to the Docker container logs stored in `/var/lib/docker/containers`. The two rule sections specify different patterns to match against the container_name key in the log records. If the pattern matches, the tag of the log record is rewritten with the new tag specified in the tag parameter. In the first rule, if the container name contains the string `nginx`, the tag is rewritten to single.nginx.$1, where $1 is a placeholder for the matched part of the container name. In the second rule, if the container name contains the string "rails", the tag is rewritten to single.rails.$1.
+This filter configuration file demonstrates how Fluentd can be used to add metadata to log records and modify their tags based on specific criteria, allowing for more targeted log processing and routing.

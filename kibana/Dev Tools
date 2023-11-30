@@ -1,0 +1,13 @@
+Kibana Dev Tools is a powerful feature that allows developers and users to interact with Elasticsearch using a simple command-line interface within Kibana. It provides a way to execute Elasticsearch API calls, including queries and updates, and provides a way to test and experiment with Elasticsearch without needing to write a full-blown application.
+
+Kibana Dev Tools commands are used for a variety of purposes, including:
+
+Querying Data: Kibana Dev Tools provides a simple and easy-to-use interface for querying data in Elasticsearch. Developers can use the command-line interface to write complex queries that can retrieve data based on specific search criteria. This is useful for analyzing data and discovering insights.
+
+Managing Indices: Kibana Dev Tools allows developers to manage Elasticsearch indices by creating, deleting, and updating them. This can be useful for managing data storage and ensuring that the data is organized efficiently.
+
+Testing APIs: Kibana Dev Tools can be used to test Elasticsearch APIs before implementing them in production. This can help developers ensure that their APIs are working correctly and that they are returning the expected results.
+
+Performing CRUD Operations: Kibana Dev Tools can be used to perform CRUD (Create, Read, Update, Delete) operations on Elasticsearch data. This is useful for managing data within Elasticsearch and for ensuring that the data is accurate and up-to-date.
+
+Debugging: Kibana Dev Tools can be used for debugging Elasticsearch queries and identifying issues with data. Developers can use the tool to test queries and identify any errors or issues with the data.

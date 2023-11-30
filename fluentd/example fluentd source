@@ -1,0 +1,22 @@
+<source>
+    @type tail
+    @id in_tail_container_logs 
+    path /var/lib/docker/containers/*/*-json.log 
+    pos_file /fluentd/log/containers.log.pos
+    time_format "%Y-%m-%dT%H:%M:%S.%L%Z"
+    keep_time_key true
+    read_from_head true
+    tag "docker.*"
+    format json
+</source>
+Here's a breakdown of the configuration:
+
+@type tail: Specifies the type of input plugin to use, which in this case is tail.
+@id in_tail_container_logs: Assigns a unique identifier to this input plugin.
+path /var/lib/docker/containers/*/*-json.log: Specifies the path to the Docker container log files.
+pos_file /fluentd/log/containers.log.pos: Specifies the file where Fluentd will store the current read position of the log files.
+time_format "%Y-%m-%dT%H:%M:%S.%L%Z": Specifies the time format used in the log files. This is important for correctly parsing the timestamps in the log data.
+keep_time_key true: Specifies that the timestamp of the log entry should be preserved as a separate field in the record.
+read_from_head true: Specifies that Fluentd should read logs from the beginning of the file.
+tag "docker.*": Assigns a tag to the log data. In this case, the tag will match all logs with the prefix "docker." and can be used to route the logs to specific output destinations.
+format json: Specifies the format of the log data. In this case, the log data is in JSON format, which Fluentd can parse and extract key-value pairs from.

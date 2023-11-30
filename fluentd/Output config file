@@ -1,0 +1,45 @@
+Output configuration files: Used in Fluentd to specify where to send the processed logs. The output plugins are responsible for taking the transformed logs and writing them to the desired destination. There are several output plugins available in Fluentd, each designed to handle a specific type of destination. 
+
+Here are some examples of output configuration files:
+
+1. Output to Elasticsearch
+
+<match docker.**>
+  @type elasticsearch
+  host elasticsearch.example.com
+  port 9200
+  logstash_format true
+  flush_interval 10s
+</match>
+This configuration file uses the elasticsearch output plugin to send logs to an Elasticsearch cluster running on `elasticsearch.example.com` on port 9200. The logstash_format directive specifies that the output should be in the Logstash format, which is a commonly used format for storing logs in Elasticsearch. The flush_interval directive specifies how often to flush the output buffer.
+
+2. Output to Amazon S3
+
+<match app.log>
+  @type s3
+  s3_bucket my-bucket
+  s3_region us-west-2
+  path logs/%Y/%m/%d/
+  buffer_path /var/log/fluentd/s3
+  time_slice_format %Y%m%d%H
+  flush_interval 10m
+</match>
+This configuration file uses the s3 output plugin to send logs to an Amazon S3 bucket. The s3_bucket and s3_region directives specify the bucket and region to use. The path directive specifies the S3 object key format for the logs. The buffer_path directive specifies the directory where the output buffer files are stored. The time_slice_format directive specifies the format for the time slice used for partitioning the logs in S3. The flush_interval directive specifies how often to flush the output buffer.
+
+3. Output to a file
+
+<match nginx.access.log>
+  @type file
+  path /var/log/nginx/access.log
+  time_slice_format %Y%m%d
+  time_slice_wait 10m
+  compress gzip
+  <buffer>
+    flush_thread_count 8
+    chunk_limit_size 1m
+    queue_limit_length 32
+    flush_mode interval
+    flush_interval 10s
+  </buffer>
+</match>
+This configuration file uses the file output plugin to write logs to a file. The path directive specifies the path of the output file. The time_slice_format and time_slice_wait directives specify the time slice format and the wait time for creating a new output file. The compress directive specifies that the output file should be compressed using gzip. The <buffer> element specifies the output buffer configuration, including the flush thread count, chunk limit size, and flush interval.
