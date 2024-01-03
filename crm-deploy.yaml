@@ -17,11 +17,11 @@ spec:
           image: pwstaging/demo-crm:latest
           envFrom:
           - configMapRef:
-              name: demo-crm-conf
+              name: crm-configmap
           ports:
             - containerPort: 3000
           env:
-            - name: MONGODV_URI
+            - name: MONGODB_URI
               valueFrom:
                 secretKeyRef:
                   name: crm-mongo-secret

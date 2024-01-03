@@ -20,9 +20,9 @@ spec:
               name: demo-crm-conf
           ports:
             - containerPort: 3000
-          env:
-            - name: MONGODV_URI
-              valueFrom:
-                secretKeyRef:
-                  name: crm-mongo-secret
-                  key: MONGODB_URI
+          # env:
+          #   - name: MONGODB_URI
+          #     valueFrom:
+          #       secretKeyRef:
+          #         name: crm-mongo-secret
+          #         key: MONGODB_URI

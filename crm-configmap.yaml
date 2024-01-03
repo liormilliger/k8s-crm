@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: demo-crm-conf
+  name: crm-configmap
 data:
   MONGODB_URI: "mongodb://mongo-0.mongodb,mongo-1.mongodb,mongo-2.mongodb:27017"
   PERSISTENCE: "true"
